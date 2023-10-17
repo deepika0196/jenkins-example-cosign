@@ -2,7 +2,7 @@ pipeline {
   agent node
   environment {
     GITHUB_TOKEN=credentials('github-token')
-    IMAGE_NAME='darinpope/jenkins-example-cosign'
+    IMAGE_NAME='deepika0196/jenkins-example-cosign'
     IMAGE_VERSION='8.5-204'
   }
   stages {
