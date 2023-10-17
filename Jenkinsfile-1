@@ -1,5 +1,5 @@
 pipeline {
-  agent any
+  agent node
   environment {
     GITHUB_TOKEN=credentials('github-token')
     IMAGE_NAME='darinpope/jenkins-example-cosign'
