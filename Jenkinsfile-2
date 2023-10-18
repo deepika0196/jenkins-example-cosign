@@ -41,7 +41,7 @@ pipeline {
     stage('sign the container image') {
       steps {
 		 script {
-                 withCredentials([string(credentialsId: 'cosign-password', variable: 'COSIGN_PASSWORD')]) { 
+                 withCredentials([string(credentialsId: 'cosign-password', variable: 'COSIGN_PASSWORD')]) {
 				    withCredentials([file(credentialsId: 'cosign-private-key', variable: 'COSIGN_PRIVATE_KEY')]){
 						sh 'cosign version'
 						sh 'cosign sign --yes --key $COSIGN_PRIVATE_KEY ghcr.io/$IMAGE_NAME:$IMAGE_VERSION'
@@ -54,12 +54,11 @@ pipeline {
     stage('verify the container image') {
       steps {
         		 script {
-		withCredentials([string(credentialsId: 'cosign-password', variable: 'COSIGN_PASSWORD')]) { 
-                	 withCredentials([file(credentialsId: 'cosign-public-key', variable: 'COSIGN_PUBLIC_KEY')]){
+		        	 withCredentials([file(credentialsId: 'cosign-public-key', variable: 'COSIGN_PUBLIC_KEY')]){
                 	          sh 'cosign verify --key $COSIGN_PUBLIC_KEY ghcr.io/$IMAGE_NAME:$IMAGE_VERSION'
-                       }   }
-    }
-  }
+                       }   
+		}
+ 	 }
   }
 } 
   post {
