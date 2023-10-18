@@ -50,8 +50,18 @@ pipeline {
 	     }
 		} 
     }
+	
+    stage('verify the container image') {
+      steps {
+        		 script {
+                 withCredentials([file(credentialsId: 'cosign-public-key', variable: 'COSIGN_PUBLIC_KEY')]){
+                  sh 'cosign version'
+                  sh 'cosign verify --key $COSIGN_PUBLIC_KEY ghcr.io/$IMAGE_NAME:$IMAGE_VERSION'
+      }
+    }
   }
- 
+  }
+} 
   post {
     always {
       sh 'docker logout'
